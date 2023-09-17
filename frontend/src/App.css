@@ -1,0 +1,143 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+.todo-container{
+  background-color:lightgreen ;
+  padding: 20px;
+  height: 100vh;
+}
+
+.todo-card {
+  background-color: #f5f5f5; 
+  border: 1px solid #ddd; 
+}
+.todo-card .container {
+  padding: 15px; 
+  position: relative; 
+}
+
+.task-title {
+  font-size: 1rem; 
+  font-weight: bold;
+  color: #333; 
+  margin-bottom: 25px;
+}
+
+.task-description {
+  font-size: 1rem; 
+  color: #555; 
+  margin-bottom: 10px;
+}
+.date-time {
+  font-size: 14px; 
+  margin-top: 10px; 
+}
+
+.edit-delete {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.edit-delete .fa-edit {
+  margin-right: 10px; 
+  color: blue;
+  cursor: pointer; 
+}
+.edit-delete .fa-trash {
+  color: red; 
+  cursor: pointer; 
+}
+
+.date-time {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-top: 10px; 
+  display: flex;
+  align-items: center;
+  color: #555;
+}
+.date-time .clock-icon {
+  margin-right: 5px; 
+  color: #007bff;
+}
+.edit-delete {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  margin-top: 10px;
+}
+.edit-delete .icon {
+  margin-right: 10px; 
+  cursor: pointer;
+}
+.status-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.completed {
+  background-color: #28a745; 
+  color: #fff; 
+}
+
+.pending {
+  background-color: #ffc107; 
+  color: #333; 
+}
+
+
+
+
+
+.modal-content {
+  background-color: #f8f9fa;
+  color: #333; /* Text color */
+}
+
+
+.modal-header {
+  background-color: #007bff;
+  color: #fff; 
+}
+
+form {
+  padding: 20px;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background-color: #0056b3;
+}
