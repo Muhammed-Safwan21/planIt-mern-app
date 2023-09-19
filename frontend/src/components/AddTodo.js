@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import instance from "../utils/axios";
 
-function AddTodo({ closeModal }) {
+function AddTodo({ closeModal, addNewTodo }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -35,10 +35,12 @@ function AddTodo({ closeModal }) {
       await instance.post("/todos", {
         title,
         date,
-        time, 
+        time,
         description,
         status,
       });
+      const newTodo = { title, date, time, description, status };
+      addNewTodo(newTodo);
       closeModal();
     } catch (error) {
       console.log(error.message);

@@ -3,16 +3,12 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import instance from "../utils/axios";
 
-function EditTodo({ closeModal,todo }) {
+function EditTodo({ closeModal, todo, updateTodo }) {
   const [taskTitle, setTaskTitle] = useState(todo.title);
-  const [date, setDate] =useState(todo.date);
-
-  console.log(date)
-
+  const [date, setDate] = useState(todo.date);
+  console.log(date);
   const [time, setTime] = useState(todo.time);
-
-  console.log(time)
-
+  console.log(time);
   const [description, setDescription] = useState(todo.description);
   const [status, setStatus] = useState(todo.status);
 
@@ -47,12 +43,21 @@ function EditTodo({ closeModal,todo }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(todo);
       await instance.put(`todos/${todo._id}`, {
         title: taskTitle,
         date,
-        time, // You can modify this according to your backend structure
+        time,
         description,
-        status
+        status,
+      });
+      updateTodo({
+        _id: todo._id,
+        title: taskTitle,
+        date,
+        time,
+        description,
+        status,
       });
       closeModal();
     } catch (error) {
