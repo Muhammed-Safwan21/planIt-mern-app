@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import instance from "../utils/axios";
-import { Col, Row, Button } from "react-bootstrap";
+import { Col, Row, Button, Card } from "react-bootstrap";
 import AddTodo from "./AddTodo";
 import EditTodo from "./EditTodo";
-import { FaPlus } from "react-icons/fa";
+import { FaClock, FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { FiCheckSquare } from "react-icons/fi";
-import Todo from "./Todo";
 
 const Todos = () => {
   const [todos, setTodos] = useState([]);
@@ -24,21 +23,27 @@ const Todos = () => {
 
   useEffect(() => {
     getTodos();
-  }, [todos]);
+  }, []);
 
-  const addNewTodo = (newTodo) => {
-    setTodos([...todos, newTodo]);
-  };
   const handleEditTodo = (todo) => {
-    setSelectedTodo(todo);
+    setSelectedTodo(todo)
     setShowEditModal(true);
   };
-  const updateTodo = (updatedTodo) => {
-    const updatedTodos = todos.map((todo) =>
-      todo._id === updatedTodo._id ? updatedTodo : todo
-    );
-    setTodos(updatedTodos);
+
+  const deleteHandler = async (id) => {
+    try {
+      const confirmed = window.confirm("Are you sure?");
+      if (confirmed) {
+        await instance.delete(`todos/${id}`);
+        getTodos();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
+
+  const timeOptions = { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true };
+  const dateOptions = { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'numeric', day: 'numeric'};
 
   return (
     <div className="todo-container">
@@ -59,10 +64,42 @@ const Todos = () => {
         {todos && todos.length > 0 ? (
           todos.map((todo) => (
             <Col key={todo._id} sm={12} md={6} className="mb-4">
-              <Todo
-                todo={todo}
-                editTodo={handleEditTodo}
-              />
+               <Card className="my-3 p-3 rounded todo-card">
+      <Card.Body className="container">
+        <div
+          className={`status-badge ${
+            todo.status === "completed" ? "completed" : "pending"
+          }`}
+        >
+          {todo.status}
+        </div>
+
+        <Card.Title className="task-title">
+          <strong>{todo.title}</strong>
+        </Card.Title>
+
+        <Card.Text className="task-description">{todo.description}</Card.Text>
+        <div className="date-time">
+          <FaClock size={18} className="mx-1 clock-icon" />
+          {`${ new Date(todo.dateTime).toLocaleString('en-US', timeOptions)} - ${ new Date(todo.dateTime).toLocaleString('en-US', dateOptions)}`}
+        </div>
+        <div className="edit-delete">
+          <FaEdit
+            size={20}
+            color="blue"
+            className="icon"
+            onClick={()=>handleEditTodo(todo)}
+          />
+          <FaTrash
+            size={20}
+            color="red"
+            className="icon"
+            onClick={()=>deleteHandler(todo._id)}
+  
+          />
+        </div>
+      </Card.Body>
+    </Card>
             </Col>
           ))
         ) : (
@@ -75,14 +112,13 @@ const Todos = () => {
       {showAddModal && (
         <AddTodo
           closeModal={() => setShowAddModal(false)}
-          addNewTodo={addNewTodo}
         />
       )}
       {showEditModal && (
         <EditTodo
           closeModal={() => setShowEditModal(false)}
           todo={selectedTodo}
-          updateTodo={updateTodo}
+          getUpdatedTodos={getTodos} 
         />
       )}
     </div>

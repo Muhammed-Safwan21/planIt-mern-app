@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import instance from "../utils/axios";
 
-function AddTodo({ closeModal, addNewTodo }) {
+function AddTodo({ closeModal }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -40,8 +40,6 @@ function AddTodo({ closeModal, addNewTodo }) {
         description,
         status,
       });
-      const newTodo = { title,dateTime, description, status };
-      addNewTodo(newTodo);
       closeModal();
     } catch (error) {
       console.log(error.message);

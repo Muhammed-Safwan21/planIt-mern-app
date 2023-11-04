@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import instance from "../utils/axios";
 
-function EditTodo({ closeModal, todo, updateTodo }) {
+function EditTodo({ closeModal, todo, getUpdatedTodos }) {
   const [taskTitle, setTaskTitle] = useState(todo.title);
   const [date, setDate] = useState(todo?.dateTime?.split('T')[0]);
   const [time, setTime] = useState(todo?.dateTime?.split('T')[1].substring(0,5));
@@ -42,13 +42,7 @@ function EditTodo({ closeModal, todo, updateTodo }) {
         description,
         status,
       });
-      updateTodo({
-        _id: todo._id,
-        title: taskTitle,
-        dateTime:`${date}T${time}`,
-        description,
-        status,
-      });
+      getUpdatedTodos()
       closeModal();
     } catch (error) {
       console.log(error.message);

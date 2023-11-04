@@ -16,9 +16,9 @@ const getTodo = async (req, res) => {
 const addTodo = async (req, res) => {
   try {
     const { title, dateTime, description, status } = req.body;
-    // console.log(req.body)
+   
     const newTodo = await Todo.create({ title, dateTime, description, status });
-    // console.log(newTodo)
+
     if (newTodo) {
       res.status(201).json(newTodo);
     } else {
@@ -34,15 +34,12 @@ const addTodo = async (req, res) => {
 const updateTodo = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
-    console.log(todo);
     if (todo) {
       todo.title = req.body.title || todo.title;
       todo.dateTime = req.body.dateTime || todo.dateTime;
       todo.description = req.body.description || todo.description;
       todo.status = req.body.status || todo.status;
-
       const updatedTodo = await todo.save();
-      // console.log(updatedTodo)
 
       res.status(201).json(updatedTodo);
     } else {
