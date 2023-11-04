@@ -3,15 +3,11 @@ const mongoose = require('mongoose')
 const todoSchema = new mongoose.Schema({
     title:{
         type:String,
-        required:[true,"this field is required"]
+        required:[true,"todo title field is required"]
     },
-    date: {
-        type: String,
-        required: [true, "Date is required"]
-      },
-      time:{
-        type: String,
-        required: [true, "time is required"]
+      dateTime:{
+        type:Date,
+        required:[true,"date and time is required"]
       },
       description:{
         type:String

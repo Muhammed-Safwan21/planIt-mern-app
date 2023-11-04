@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import instance from "../utils/axios";
 
 function EditTodo({ closeModal, todo, updateTodo }) {
   const [taskTitle, setTaskTitle] = useState(todo.title);
-  const [date, setDate] = useState(todo.date);
-  console.log(date);
-  const [time, setTime] = useState(todo.time);
-  console.log(time);
+  const [date, setDate] = useState(todo?.dateTime?.split('T')[0]);
+  const [time, setTime] = useState(todo?.dateTime?.split('T')[1].substring(0,5));
   const [description, setDescription] = useState(todo.description);
   const [status, setStatus] = useState(todo.status);
 
-  useEffect(() => {
-    setTaskTitle(todo.title);
-    setDate(todo.date);
-    setTime(todo.time);
-    setDescription(todo.description);
-    setStatus(todo.status);
-  }, [todo]);
 
   const handleTaskTitleChange = (e) => {
     setTaskTitle(e.target.value);
@@ -39,23 +30,22 @@ function EditTodo({ closeModal, todo, updateTodo }) {
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
   };
+  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(todo);
       await instance.put(`todos/${todo._id}`, {
         title: taskTitle,
-        date,
-        time,
+        dateTime:`${date}T${time}`,
         description,
         status,
       });
       updateTodo({
         _id: todo._id,
         title: taskTitle,
-        date,
-        time,
+        dateTime:`${date}T${time}`,
         description,
         status,
       });

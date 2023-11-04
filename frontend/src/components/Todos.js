@@ -17,7 +17,6 @@ const Todos = () => {
     try {
       const response = await instance.get("todos");
       setTodos(response.data);
-      // console.log(response.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -51,7 +50,11 @@ const Todos = () => {
         <h1 className="my-4">
           <FiCheckSquare /> PlanIt
         </h1>
-        <Button variant="primary" onClick={() => setShowAddModal(true)} className="my-4">
+        <Button
+          variant="primary"
+          onClick={() => setShowAddModal(true)}
+          className="my-4"
+        >
           <FaPlus /> Add Task
         </Button>
       </div>
@@ -75,14 +78,16 @@ const Todos = () => {
       </Row>
 
       {showAddModal && (
-        <AddTodo closeModal={() => setShowAddModal(false)} 
-        addNewTodo={addNewTodo} />
+        <AddTodo
+          closeModal={() => setShowAddModal(false)}
+          addNewTodo={addNewTodo}
+        />
       )}
       {showEditModal && (
         <EditTodo
           closeModal={() => setShowEditModal(false)}
           todo={selectedTodo}
-          updateTodo={updateTodo} 
+          updateTodo={updateTodo}
         />
       )}
     </div>

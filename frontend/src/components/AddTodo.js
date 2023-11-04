@@ -10,6 +10,8 @@ function AddTodo({ closeModal, addNewTodo }) {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("todo");
 
+  const dateTime = `${date} ${time}`
+
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -34,12 +36,11 @@ function AddTodo({ closeModal, addNewTodo }) {
     try {
       await instance.post("/todos", {
         title,
-        date,
-        time,
+        dateTime,
         description,
         status,
       });
-      const newTodo = { title, date, time, description, status };
+      const newTodo = { title,dateTime, description, status };
       addNewTodo(newTodo);
       closeModal();
     } catch (error) {

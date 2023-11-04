@@ -21,6 +21,9 @@ const Todo = ({ todo, editTodo, onDelete }) => {
     editTodo(todo);
   };
 
+  const timeOptions = { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true };
+  const dateOptions = { timeZone: 'Asia/Kolkata', year: 'numeric', month: 'numeric', day: 'numeric'};
+
   return (
     <Card className="my-3 p-3 rounded todo-card">
       <Card.Body className="container">
@@ -39,7 +42,7 @@ const Todo = ({ todo, editTodo, onDelete }) => {
         <Card.Text className="task-description">{todo.description}</Card.Text>
         <div className="date-time">
           <FaClock size={18} className="mx-1 clock-icon" />
-          {`${todo.time} - ${todo.date} `}
+          {`${ new Date(todo.dateTime).toLocaleString('en-US', timeOptions)} - ${ new Date(todo.dateTime).toLocaleString('en-US', dateOptions)}`}
         </div>
         <div className="edit-delete">
           <FaEdit
