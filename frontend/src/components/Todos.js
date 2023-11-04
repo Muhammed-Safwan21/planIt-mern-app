@@ -24,7 +24,7 @@ const Todos = () => {
 
   useEffect(() => {
     getTodos();
-  }, []);
+  }, [todos]);
 
   const addNewTodo = (newTodo) => {
     setTodos([...todos, newTodo]);
@@ -37,10 +37,6 @@ const Todos = () => {
     const updatedTodos = todos.map((todo) =>
       todo._id === updatedTodo._id ? updatedTodo : todo
     );
-    setTodos(updatedTodos);
-  };
-  const deleteTodo = (todoId) => {
-    const updatedTodos = todos.filter((todo) => todo._id !== todoId);
     setTodos(updatedTodos);
   };
 
@@ -66,7 +62,6 @@ const Todos = () => {
               <Todo
                 todo={todo}
                 editTodo={handleEditTodo}
-                onDelete={deleteTodo}
               />
             </Col>
           ))

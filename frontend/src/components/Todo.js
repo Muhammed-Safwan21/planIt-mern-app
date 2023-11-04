@@ -1,16 +1,14 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import { FaEdit, FaTrash, FaClock } from "react-icons/fa";
-
 import instance from "../utils/axios";
 
-const Todo = ({ todo, editTodo, onDelete }) => {
-  const deleteHandler = async () => {
+const Todo = ({ todo, editTodo }) => {
+  const deleteHandler = async (id) => {
     try {
       const confirmed = window.confirm("Are you sure?");
       if (confirmed) {
-        await instance.delete(`todos/${todo._id}`);
-        onDelete(todo._id);
+        await instance.delete(`todos/${id}`);
       }
     } catch (error) {
       console.log(error.message);
@@ -55,7 +53,8 @@ const Todo = ({ todo, editTodo, onDelete }) => {
             size={20}
             color="red"
             className="icon"
-            onClick={deleteHandler}
+            onClick={()=>deleteHandler(todo._id)}
+  
           />
         </div>
       </Card.Body>

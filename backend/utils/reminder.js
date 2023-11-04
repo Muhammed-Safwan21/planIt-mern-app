@@ -29,7 +29,6 @@ const sendEmailReminder = (task) => {
 };
 
 const setReminder = async () => {
-  //console.log("cron run on server")
   try {
     const todos = await Todo.find();
 
